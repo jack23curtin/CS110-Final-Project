@@ -1,0 +1,102 @@
+import random
+import time
+
+def enoughMoney(amount, bet):
+    while bet > amount:
+        bet = int(input("Please enter a bet less than your total earnings: "))
+    return bet
+
+def RedvBlack(amount):
+    colorChoice = input("Which color do you choose? Type red or black: ")
+    bet = int(input("How much do you want to bet? Type an integer: "))
+    if bet > amount:
+        bet = enoughMoney(amount, bet)
+    colorList = ["red","black"]
+    randomSelect = (random.choice(colorList))
+    if randomSelect == colorChoice:
+        print("You win!")
+        amount = amount + bet
+    else:
+        print("Sorry, you lose. The winning number was " + randomSelect)
+        amount = amount - bet
+    return amount
+
+def OddvEven(amount):
+    colorChoice = input("Do you choose Even or Odd? Type even or odd: ")
+    bet = int(input("How much do you want to bet? Type an integer: "))
+    if bet > amount:
+        bet = enoughMoney(amount, bet)
+    colorList = ["even","odd"]
+    randomSelect = (random.choice(colorList))
+    if randomSelect == colorChoice:
+        print("You win!")
+        amount = amount + bet
+    else:
+        print("Sorry, you lose. The winning number was " + randomSelect)
+        amount = amount - bet
+    return amount
+
+def singleNum(amount):
+    numChoice = int(input("What number do you want to play? Type number (0 - 36): "))
+    bet = int(input("How much do you want to bet? Type an integer: "))
+    if bet > amount:
+        bet = enoughMoney(amount, bet)
+    numList = []
+    for c in range(37):
+        numList.append(c)
+    randomSelect = (random.choice(numList))
+    if randomSelect == numChoice:
+        print("You win!")
+        amount = amount + (bet * 36)
+    else:
+        print("Sorry, you lose. The winning number was " + str(randomSelect))
+        amount = amount - bet
+    return amount
+
+def Dozens(amount):
+    dozChoice = (input("What dozen do you want to play? Type (1-12), (13-24), or (25-26): "))
+    bet = int(input("How much do you want to bet? Type an integer: "))
+    if bet > amount:
+        bet = enoughMoney(amount, bet)
+    dozList = ["(1-12)","(13-24)","(25-26)"]
+    randomSelect = (random.choice(dozList))
+    if randomSelect == dozChoice:
+        print("You win!")
+        amount = amount + (bet * 2)
+    else:
+        print("Sorry, you lose. The winning dozen was " + randomSelect)
+        amount = amount - bet
+    return amount
+
+def playRoulette(amount):
+    print("Welcome to roulette!")
+    time.sleep(1)
+    input("Press enter to see avalible bets to place:")
+    print("Red/Black[1]")
+    time.sleep(.5)
+    print("Odd/Even[2]")
+    time.sleep(.5)
+    print("Single Number[3]")
+    time.sleep(.5)
+    print("Dozens[4]")
+    time.sleep(.5)
+    gameMode = ""
+    while gameMode != "q":
+        gameMode = input("Which bet do you want to place? (Type the corisponding number or q to quit) ")
+        if gameMode == "1":
+            amount = (RedvBlack(amount))
+        if gameMode == "2":
+            amount = (OddvEven(amount))
+        if gameMode == "3":
+            amount = (singleNum(amount))
+        if gameMode == "4":
+            amount = (Dozens(amount))
+        if gameMode == "q":
+            return amount
+        print("You have $" + str(amount))
+        #updateTotalAmountGraphic(amount)
+
+def main():
+    amount = 100
+    playRoulette(amount)
+main()
